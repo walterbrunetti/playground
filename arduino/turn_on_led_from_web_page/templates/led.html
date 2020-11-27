@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wally Led Turn On and Off</title>
+    <style>
+        .button {
+            display: block;
+            width: 100%;
+            height: 200px;
+            margin-top: 10px;
+            font-size: 50px;
+        }
+    </style>
+    <script>
+        var xhttp = new XMLHttpRequest();
+        function turnOn(){
+            xhttp.open('POST', 'turn_on', true);
+            xhttp.send();
+        }
+        function turnOff(){
+            xhttp.open('POST', 'turn_off', true);
+            xhttp.send();
+        }
+        
+
+    </script>
+</head>
+<body>
+
+    <!--<form action="{{ url_for('turn_on') }}" method="post">
+        <button class="button" name="Turn ON" type="submit" value="Turn ON">Turn ON</button>
+    </form>
+    <form action="{{ url_for('turn_off') }}" method="post">
+        <button class="button" name="Turn OFF" type="submit" value="Turn OFF">Turn OFF</button>
+    </form> -->
+    <button class="button" name="Turn ON" type="button" value="Turn ON" onclick="turnOn()">Turn ON</button>
+    <button class="button" name="Turn OFF" type="button" value="Turn OFF" onclick="turnOff()">Turn OFF</button>
+</body>
+</html>
