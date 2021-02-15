@@ -83,27 +83,20 @@ def find_missing_element_fast(A):
   * N is an integer within the range [2..100,000];
   * each element of array A is an integer within the range [−1,000..1,000].
 
-
-[1, 2, 3, 4, 5, 6]
-
-random medium, numbers from 0 to 100, length = ~10,000
-✘
-TIMEOUT ERROR
-running time: 1.184 sec., time limit: 0.208 sec. 
-
 """
 
 
 def tape_equilibrium(A):
-
-    min_val = 1001
     N = len(A)
-
+    a_list_sum = sum(A) - A[0]
+    b_list_sum = A[0]
+    min_val = abs(a_list_sum - b_list_sum)
     for i in range(1, N - 1):
-        a = sum(A[0:i])
-        b = sum(A[i:N])
+        ele = A[i]
+        a_list_sum -= ele
+        b_list_sum += ele
 
-        r = abs(a-b)
+        r = abs(a_list_sum - b_list_sum)
         if r < min_val:
             min_val = r
 
@@ -112,8 +105,12 @@ def tape_equilibrium(A):
 
 
 
-A = [1, 1]
+A = [3, 1, 2, 4, 3]
+
 print(tape_equilibrium(A))
+
+
+
 
 
 
