@@ -8,6 +8,15 @@ Concurrent Functions
 
 The following functions help to co-ordinate the running of functions concurrently, and offer varying degrees of control dependant on the needs of your application.
 
+Now it starts to get interesting, here is where some people mistakenly think this is running in parallel, but no, it's not parallel, it's concurrent.
+There's no code being run at the same time.
+
+In other words, async only "works" when you have to wait for IO operations. (do other stuff while waiting for a response from IO, HTTP request, DB, etc)
+
+
+Great explanation with real examples:
+https://blog.guilatrova.dev/async-python-in-real-life/
+
 """
 
 

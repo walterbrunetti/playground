@@ -1,0 +1,19 @@
+    version: '3'
+    services:
+        consumer:
+            build:
+                context: .
+                dockerfile: Dockerfile
+                args:
+                    buildno: 1
+            command: celery -A consumer worker -l INFO
+            depends_on:
+                - rabbitmq
+            volumes:
+                - .:/app
+        
+        rabbitmq:
+            image: rabbitmq:3-management
+            ports:
+              - "5672:5672"
+              - "15672:15672"

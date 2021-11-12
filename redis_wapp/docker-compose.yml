@@ -1,0 +1,31 @@
+    version: '3'
+    services:
+        web:
+            build:
+                context: .
+                dockerfile: Dockerfile
+                args:
+                    buildno: 1
+            ports:
+                - "5000:5000"
+            command: python ./index_redis.py
+            volumes:
+                - .:/app
+        consumer:
+            build:
+                context: .
+                dockerfile: Dockerfile
+                args:
+                    buildno: 1
+            command: celery -A consumer worker -l INFO
+            depends_on:
+                - redis
+            volumes:
+                - .:/app
+        
+        redis:
+            #image: "redis:alpine"
+            image: redis:latest
+            container_name: redis_service
+            expose:
+                - 6379
