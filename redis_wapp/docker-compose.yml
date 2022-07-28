@@ -17,13 +17,23 @@
                 dockerfile: Dockerfile
                 args:
                     buildno: 1
-            command: celery -A celery_app worker -l INFO --pool=prefork --concurrency=3 -E -n consumer1@wally.com #-Q pipeline_2  -f %n-%i.log
+            command: celery -A celery_app worker -l INFO --pool=prefork --concurrency=3 -E -n consumer@wally.com -Q pipeline_1,pipeline_2  #-f %n-%i.log
             #command: ["celery", "worker", "--app=celery_app", "--loglevel=INFO"]
             depends_on:
                 - redis
             volumes:
                 - .:/app
-
+        consumer_2:
+            build:
+                context: .
+                dockerfile: Dockerfile
+                args:
+                    buildno: 1
+            command: celery -A celery_app worker -l INFO --pool=prefork --concurrency=1 -E -n consumer_2@wally.com -Q pipeline_3  #-f %n-%i.log
+            depends_on:
+                - redis
+            volumes:
+                - .:/app
         redis:
             image: redis:latest
             container_name: redis_service
@@ -44,3 +54,4 @@
             depends_on:
               - redis
               - consumer
+              - consumer_2

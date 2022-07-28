@@ -26,14 +26,15 @@ from producer import produce_messages
 def hello():
     #count = get_hit_count()
     produce_messages()
-    return 'Hello World! I have been seen {} times WWW.\n'.format(11)
+    return 'Messeges were produced\n'
 
 
 @app.route('/redis')
 def redis_status():
     queue_1 = redis_server.llen("pipeline_1")
     queue_2 = redis_server.llen("pipeline_2")
-    return "Q1 {} - Q2 {}".format(queue_1, queue_2)
+    queue_3 = redis_server.llen("pipeline_3")
+    return "Q1 {} - Q2 {} - Q3 {}".format(queue_1, queue_2, queue_3)
 
 
 if __name__ == "__main__":

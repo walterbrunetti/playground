@@ -1,15 +1,18 @@
-import time
-import requests
 from celery_app import celery_app
+from core.hit_service import hit_service, hit_other_service
+from core.rss_service import get_cnn_rss as get_cnn_rss_service
 
 
 @celery_app.task
 def add(x, y):
-    requests.get(f"http://www.x.com?q={y}")
-    requests.get("http://www.cc.com")
-    return x + y
+    return hit_service(x, y)
+
 
 @celery_app.task
 def do_something():
-    resp = requests.get("http://www.qq.com")
-    return resp
+    return hit_other_service()
+
+
+@celery_app.task
+def get_cnn_rss():
+    return get_cnn_rss_service()
