@@ -25,13 +25,12 @@ Status:
 - worker does 2 tasks. Each task goes to different queues
 
 Next steps:
-- 2 workers for one queue, 4 for another (Say you have two servers, x, and y that handle regular tasks, and one server z, that only handles feed related tasks)
-  * https://docs.celeryq.dev/en/latest/userguide/routing.html
 - Add a bunch of messages at once and see how it behaves when adding more workers.
-  * Use fixed number of workers (vs autoscaling)
+  * Use fixed number of workers (vs autoscaling)  -- does it refers to concurrency?
 - rate_limit
 - what about retries?
 - Dependencies between tasks: Chains - groups - chords
+- different ways of invoking tasks (delay, apply_async, .s(), etc)
 - how adding messages to a queue without calling the producer directly?
     * https://flower.readthedocs.io/en/latest/api.html
     * post a message from redis directly?
@@ -43,10 +42,15 @@ Next steps:
     prefetch_multiplier=1 (main process will not take more task than it needs - 1 per child)
 - monitoring celery/tasks (flower - new rellic/data dog/ graphite-grafana/logentries)
   * https://flower.readthedocs.io/en/latest/prometheus-integration.html#start-grafana
+- supervisord
 
 
 
-
+https://www.youtube.com/watch?v=Bo6UtRhedjE  --> see this video again to answer the following:
+Define NUMBER OF TASKS PER PROCESS (WORKER - CHILD ) worker_max_tasks_per_child = 1
+   - if you have simple tasks maybe having a worker with multiple tasks is fine.
+   - if tasks are complex and long, having 1 worker for 1 task makes more sense.
+Usa base for tasks - add logging and monitoring on it
 
 
 
