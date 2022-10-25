@@ -11,6 +11,18 @@
             command: python ./index_redis.py
             volumes:
                 - .:/app
+        producer_service:
+            build:
+              context: .
+              dockerfile: DockerFileSeparateService
+              args:
+                buildno: 1
+            volumes:
+              - .:/app_2
+            depends_on:
+              - redis
+              - consumer
+              - consumer_2
         consumer:
             build:
                 context: .

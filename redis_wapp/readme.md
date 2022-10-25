@@ -19,11 +19,12 @@ docker exec -ti redis_wapp_consumer_1 sh
 ## Project status and next steps
 
 Status:
-- App and Containers are working.
+- App and Containers are working correctly.
 - Flower is showing workers but not queues for some reason.
 - there's an endpoint that produces 50 messages.
 - there are 4 tasks and 3 queues. Two of the tasks share a queue (`pipeline_1`)
 - there are 2 consumers (workers). One consume from queue 1 and 2. The other from queue 3.
+- created a separate container (`producer_service`) to produce messages without access to the code base.
 
 Next steps:
 - Add a bunch of messages at once and see how it behaves when adding more workers.
@@ -32,11 +33,6 @@ Next steps:
 - rate_limit
 - Dependencies between tasks: Chains - groups - chords
 - different ways of invoking tasks (delay, apply_async, .s(), etc)
-- how adding messages to a queue without calling the producer directly?
-    * https://flower.readthedocs.io/en/latest/api.html
-    * post a message from redis directly?
-    * celery.send_task('job1', args=[], kwargs={}, queue='queue_name_1')
-      celery.send_task('job1', args=[], kwargs={}, queue='queue_name_2')
 - monitoring celery/tasks (flower - new rellic/data dog/ graphite-grafana/logentries)
   * https://flower.readthedocs.io/en/latest/prometheus-integration.html#start-grafana
 - supervisord

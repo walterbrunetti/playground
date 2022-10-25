@@ -1,0 +1,9 @@
+FROM python:3.9
+
+RUN pip install --no-cache-dir celery==5.0.5 redis
+
+WORKDIR /app_2
+
+COPY ./producer_service .
+
+CMD python ./producer_service/execute_messages.py

@@ -1,30 +1,13 @@
-import time
-
 import redis
 from flask import Flask
+from producer import produce_messages
 
 app = Flask(__name__)
 redis_server = redis.Redis(host='redis', port=6379)
 
 
-from producer import produce_messages
-
-
-# def get_hit_count():
-#     retries = 5
-#     while True:
-#         try:
-#             return cache.incr('hits')
-#         except redis.exceptions.ConnectionError as exc:
-#             if retries == 0:
-#                 raise exc
-#             retries -= 1
-#             time.sleep(0.5)
-
-
 @app.route('/')
 def hello():
-    #count = get_hit_count()
     produce_messages()
     return 'Messeges were produced\n'
 

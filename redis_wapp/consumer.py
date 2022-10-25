@@ -40,9 +40,11 @@ def get_api_2(self):
         logger.warning("Something wrong happened")
         raise self.retry(exc=exc)
 
+
 @celery_app.task(bind=True, max_retries=2, default_retry_delay=5, base=BaseTask)
 def get_api_3(self):
     hit_extra_service()
+
 
 @celery_app.task(base=BaseTask)
 def get_cnn_rss():
