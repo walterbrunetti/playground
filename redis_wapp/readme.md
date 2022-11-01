@@ -31,8 +31,7 @@ Next steps:
   * Use fixed number of workers (vs autoscaling)  -- does it refer to concurrency?
   * use ofair
 - rate_limit
-- Dependencies between tasks: Chains - groups - chords
-- different ways of invoking tasks (delay, apply_async, .s(), etc)
+- Dependencies between tasks: Chains - groups - chords  (when is convenient to use each?)
 - monitoring celery/tasks (flower - new rellic/data dog/ graphite-grafana/logentries)
   * https://flower.readthedocs.io/en/latest/prometheus-integration.html#start-grafana
 - supervisord
@@ -50,7 +49,7 @@ https://medium.com/analytics-vidhya/python-celery-explained-for-beginners-to-pro
 https://www.youtube.com/watch?v=Bo6UtRhedjE
 
 
-## Notes
+## Notes & learnings
 * Celery got a master process. Workers are Childs (worker processes).
 * Concepts:
   - task is a function that does something (cooking)
@@ -80,7 +79,12 @@ https://www.youtube.com/watch?v=Bo6UtRhedjE
   If the worker won’t shutdown after considerate time, for being stuck in an infinite-loop or similar, you can use the KILL signal (-9) to force terminate the worker: but be aware that currently executing tasks will be lost (i.e., unless the tasks have the acks_late option set).
   https://docs.celeryq.dev/en/master/userguide/workers.html#worker-stopping
   ```
-
+* Calling tasks: 
+  ```
+  delay is our beloved shortcut to apply_async taking star-arguments. apply_async provides multiple options.
+  A signature() wraps the arguments, keyword arguments, and execution options of a single task invocation in a way such that it can be passed to functions or even serialized and sent across the wire.
+  https://docs.celeryq.dev/en/stable/userguide/canvas.html#guide-canvas
+  ```
 
 ## Idea: Build a program with following features
   - There's a celerybeat that runs every X minutes.
