@@ -4,7 +4,7 @@
 
 
 """
-Concurrent Functions
+Concurrent Functions - single thread
 
 The following functions help to co-ordinate the running of functions concurrently, and offer varying degrees of control dependant on the needs of your application.
 
@@ -16,6 +16,8 @@ In other words, async only "works" when you have to wait for IO operations. (do 
 
 Great explanation with real examples:
 https://blog.guilatrova.dev/async-python-in-real-life/
+
+Async fundamentals: https://jwodder.github.io/kbits/posts/pyasync-fundam/
 
 """
 
