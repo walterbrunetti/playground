@@ -1,6 +1,6 @@
 
 
-# Auth playground'
+# Auth playground
 This app pretends to play with JWT and HMAC by implementing 2 endpoints:
    - login
    - validate token
@@ -8,7 +8,7 @@ This app pretends to play with JWT and HMAC by implementing 2 endpoints:
 The payload used to create the JWT contains an HMAC signature that will be validated later on.
 
 
-###Running the app
+### Running the app
 
 Create and activate a virtual env.
 
@@ -18,17 +18,19 @@ python auth_index.py
 
 ```
 
-###Try it
+### Try it
 
-1- Log-in
+1- Log-in:
+
 `curl http://127.0.0.1:5000/login -u my_user_name:my_temp_password -X POST`
 
-2- Validate token returned in step #1
+2- Validate token returned in step #1:
+
 `curl -H 'Authorization: Bearer <token>' http://127.0.0.1:5000/validate_token -X POST`
 
 
 
-###Try it with a Python shell
+### Try it with a Python shell
 ```
 import requests
 import base64
@@ -63,6 +65,7 @@ Authorizarion: Bearer <token>
 
 ### JWT
 JSON Web Token is an open industry standard used to share information between two entities.
+JWT is a protocol for generating signed tokens containing claims. Claims is any information that you can represent in JSON-like format.
 The tokens are signed either using a private secret or a public/private key.
 
 ```
@@ -74,8 +77,10 @@ The tokens are signed either using a private secret or a public/private key.
 
 
 ### HMAC
+HMAC stands for Hash based Message Authentication Code.
 The HMAC is an algorithm that generates a hash of the message using a cryptographic hash function and a secret cryptographic key.
 It can be used to check data for integrity and authenticity.
+The HMAC construction can use any secure hash function, and will output a hash at the end. A middleman attacker could not generate a valid HMAC without knowledge of the key. So when we send encrypted data, it is a good idea to send an HMAC along with it, so that if the message is changed, the HMAC will be invalid.
 
 
 
