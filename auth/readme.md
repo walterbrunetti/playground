@@ -78,11 +78,10 @@ The tokens are signed either using a private secret or a public/private key.
 
 ### HMAC
 HMAC stands for Hash based Message Authentication Code.
+
 The HMAC is an algorithm that generates a hash of the message using a cryptographic hash function and a secret cryptographic key.
+
 It can be used to check data for integrity and authenticity.
+
 The HMAC construction can use any secure hash function, and will output a hash at the end. A middleman attacker could not generate a valid HMAC without knowledge of the key. So when we send encrypted data, it is a good idea to send an HMAC along with it, so that if the message is changed, the HMAC will be invalid.
-
-
-
-
 

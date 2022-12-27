@@ -8,7 +8,7 @@ Least Flexible:
 
 """
 
-
+from dataclasses import dataclass
 from typing import List
 
 
@@ -46,6 +46,14 @@ class Ticket:
 
     def __repr__(self):
         return f"{self.ticket_id} - {self.restrictions}"
+
+
+@dataclass
+class T:
+    id: str
+    restrictions: List[str]
+    # b: int = 0
+    # z: int = field(repr=False, default=10)  # do not add to __repr__
 
 
 
