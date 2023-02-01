@@ -21,27 +21,9 @@ void setup(){
 
 void demoW(){
 
-  
-  //digitalWrite(in1, HIGH);
-  //digitalWrite(in2, LOW);
-  // set speed to 200 out of possible range 0~255
-  //analogWrite(enA, 100);
-
-  digitalWrite(in3, HIGH);
-  digitalWrite(in4, LOW);
-  // set speed to 200 out of possible range 0~255
-  analogWrite(enB, 100);
-
-
-  delay(5000);
-
-  digitalWrite(in1, LOW);
+  digitalWrite(in1, HIGH);
   digitalWrite(in2, LOW);
-
-  digitalWrite(in3, LOW);
-  digitalWrite(in4, LOW);
-
-  delay(5000);
+  analogWrite(enA, 255);  // set speed to 200 out of possible range 0~255
 
 }
 
@@ -58,13 +40,13 @@ void demoOne()
   digitalWrite(in4, LOW);
   // set speed to 200 out of possible range 0~255
   analogWrite(enB, 200);
-  delay(2000);
+  delay(3000);
   // now change motor directions
   digitalWrite(in1, LOW);
   digitalWrite(in2, HIGH);  
   digitalWrite(in3, LOW);
   digitalWrite(in4, HIGH); 
-  delay(2000);
+  delay(3000);
   // now turn off motors
   digitalWrite(in1, LOW);
   digitalWrite(in2, LOW);  
@@ -108,9 +90,6 @@ void demoTwo(){
 void loop(){
   //demoW();
   //delay(1000);
-  //demoTwo();
-  //delay(1000);
-
-  //demoW();
-  //delay(500);
+  demoOne();
+  delay(5000);
 }
