@@ -11,37 +11,37 @@ def home():
     return render_template('index.html', status="Status: ready")
 
 
-@app.route('/go-forward',methods = ['GET', ])
+@app.route('/go-forward',methods = ['POST', ])
 def go_forward():
     move_forward()
     return jsonify({"success": True})
 
 
-@app.route('/go-stop',methods = ['GET', ])
+@app.route('/go-stop',methods = ['POST', ])
 def stop():
     stop()
     return jsonify({"success": True})
 
 
-@app.route('/go-right',methods = ['GET', ])
+@app.route('/go-right',methods = ['POST', ])
 def go_right():
     move_right()
     return jsonify({"success": True})
 
 
-@app.route('/go-left',methods = ['GET', ])
+@app.route('/go-left',methods = ['POST', ])
 def go_left():
     move_left()
     return jsonify({"success": True})
 
 
-@app.route('/go-backward',methods = ['GET', ])
+@app.route('/go-backward',methods = ['POST', ])
 def go_backward():
     move_backward()
     return jsonify({"success": True})
 
 
-@app.route('/go-exit',methods = ['GET', ])
+@app.route('/go-exit',methods = ['POST', ])
 def exit_program():
     exit_program()
     return jsonify({"success": True})
