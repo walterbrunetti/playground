@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>W-4000</title>
+
+
+    <script>
+
+
+    function move(direction){
+        fetch('http://127.0.0.1:5000/go-' + direction, {
+            method: 'POST',
+            headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => response.json())
+
+    }
+
+    var key_down_flag = false;
+    document.addEventListener('keyup', function(event) {
+
+        if (event.code == 'KeyA' || event.code == 'KeyS' || event.code == 'KeyD' || event.code == 'KeyW') {
+            console.log("Key up, so stop");
+            move("stop");
+            key_down_flag = false;
+        }
+    });
+
+
+    document.addEventListener('keydown', function(event) {
+        if (key_down_flag){
+            return;
+        }
+
+        if (event.code == 'KeyA') {
+            console.log("A down");
+            move("left");
+        }
+
+        if (event.code == 'KeyS') {
+            console.log("S down");
+            move("backward");
+        }
+
+        if (event.code == 'KeyD') {
+            console.log("D down");
+            move("right");
+        }
+
+        if (event.code == 'KeyW') {
+            console.log("W down");
+            move("forward");
+        }
+
+        key_down_flag = true;
+    });
+
+
+    function exit(){
+        move("exit");
+        document.getElementById("status").innerHTML = "Status: Not Ready"
+    }
+    </script>
+
+
+</head>
+<body>
+    <h1>Welcome to W-4000 controller</h1>
+    <h2>Use A - S - D - W to controll the robot</h2>
+    <div id="status">{{ status }}</div>
+
+    <button onclick="exit();">Exit</button>
+</body>
+</html>

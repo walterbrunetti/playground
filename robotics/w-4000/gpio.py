@@ -12,35 +12,38 @@ en_2 = 27  # purple
 p = None
 p_2 = None
 
-
-temp1=1
-
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(in1,GPIO.OUT)
-GPIO.setup(in2,GPIO.OUT)
-GPIO.setup(en,GPIO.OUT)
-GPIO.output(in1,GPIO.LOW)
-GPIO.output(in2,GPIO.LOW)
+
+# Motor 1
+GPIO.setup(in1, GPIO.OUT)
+GPIO.setup(in2, GPIO.OUT)
+GPIO.setup(en, GPIO.OUT)
+GPIO.output(in1, GPIO.LOW)
+GPIO.output(in2, GPIO.LOW)
+
+# Motor 2
+GPIO.setup(in1_2, GPIO.OUT)
+GPIO.setup(in2_2, GPIO.OUT)
+GPIO.setup(en_2, GPIO.OUT)
+GPIO.output(in1_2, GPIO.LOW)
+GPIO.output(in2_2, GPIO.LOW)
+
+#GPIO.setwarnings(False)
 
 
-GPIO.setup(in1_2,GPIO.OUT)
-GPIO.setup(in2_2,GPIO.OUT)
-GPIO.setup(en_2,GPIO.OUT)
-GPIO.output(in1_2,GPIO.LOW)
-GPIO.output(in2_2,GPIO.LOW)
-
-p=GPIO.PWM(en,1000)
-#p.start(75)
-
-p_2=GPIO.PWM(en_2,1000)
-#p_2.start(75)
+p = None
+p_2= None
 
 motor_1 = None
 motor_2 = None
 
 
+# Test
+"""
+1- Uncoment the init part (just the GPIO) and re-try
+2- Try moving 'p' under the class
 
-
+"""
 
 class DCMotor():
     """A class to control one side of an L298N dual H bridge motor driver."""
@@ -49,18 +52,18 @@ class DCMotor():
         self.in2 = in2
     #    all_pins = [self.in1, self.in2]
     #    GPIO.setmode(GPIO.BCM)
-    #    #GPIO.setup(all_pins, GPIO.OUT)
-    #    GPIO.setup(in1, GPIO.OUT)
-    #    GPIO.setup(in2, GPIO.OUT)
+    #    GPIO.setup(all_pins, GPIO.OUT)
     #    GPIO.setup(en, GPIO.OUT)
     #    #GPIO.setwarnings(False)
 
-    #    GPIO.output(in1,GPIO.LOW)
-    #    GPIO.output(in2,GPIO.LOW)
-    #    p = GPIO.PWM(en,1000)
-    #    p.start(75)
+    #    GPIO.output(in1, GPIO.LOW)
+    #    GPIO.output(in2, GPIO.LOW)
 
-    #    print "Done setting up"
+
+        #global p
+    #    p = GPIO.PWM(en, 1000)
+    #    p.start(75)
+        #self.p = p
 
 
     def forwards(self):
@@ -75,6 +78,15 @@ class DCMotor():
         GPIO.output(self.in1, GPIO.LOW)
         GPIO.output(self.in2, GPIO.LOW)
 
+    def set_high_valocity():
+        self.p.ChangeDutyCycle(75)
+
+    def set_medium_valocity():
+        self.p.ChangeDutyCycle(50)
+
+
+
+
 
 
 def initialize():
@@ -83,63 +95,119 @@ def initialize():
     global motor_1
     global motor_2
 
-    #p=GPIO.PWM(en,1000)
-    p.start(75)
-
-    #p_2=GPIO.PWM(en_2,1000)
-    p_2.start(75)
 
     motor_1 = DCMotor(en, in1, in2)
     motor_2 = DCMotor(en_2, in1_2, in2_2)
 
+    p = GPIO.PWM(en, 1000)  # Pulse Width Modulation for motor 1
+    p.start(75)
+
+    p_2 = GPIO.PWM(en_2, 1000)
+    p_2.start(75)
 
 
 
-def go_fordward():
+
+
+def move_forward():
+    global motor_1
+    global motor_2
+
     motor_1.forwards()
     motor_2.forwards()
 
+
+def move_backward():
+    global motor_1
+    global motor_2
+
+    motor_1.backwards()
+    motor_2.backwards()
+
+
 def stop():
+    global motor_1
+    global motor_2
+
     motor_1.stop()
     motor_2.stop()
 
 
+def move_left():
+    global motor_1
+    global motor_2
+
+    motor_1.stop()
+    motor_2.forwards()
+
+
+def move_right():
+    global motor_1
+    global motor_2
+
+    motor_1.forwards()
+    motor_2.stop()
+
+
+def set_high_valocity():
+    global motor_1
+    global motor_2
+
+    motor_1.set_high_valocity()
+    motor_2.set_high_valocity()
+
+
+def set_medium_valocity():
+    global motor_1
+    global motor_2
+
+    motor_1.set_medium_valocity()
+    motor_2.set_medium_valocity()
+
+
+def exit_program():
+    GPIO.cleanup()
+    GPIO.setmode(GPIO.BCM)
 
 
 
 
 def run_robot():
 
+    print("\n")
+    print("The default speed & direction of motor is LOW & Forward.....")
+    print("s-stop f-forward b-backward l-left r-right e-exit")
+    print("\n")
+    print("Velocity: m-medium h-high")
+    print("\n")
 
-    
+
 
     while(1):
-        print "Input command: "
+        print("Input command: ")
         x = raw_input()
         
         if x == "f":
-            print "forward"
-            go_fordward()
+            print("forward")
+            move_forward()
         elif x == "b":
-            # backwards
-            pass
+            move_backward()
         elif x == "s":
-            print "stop"
             stop()
-            x='z'
+            #x='z'
         elif x == "l":
-            # left
-            pass
+            move_left()
         elif x == "r":
-            # right
-            pass
+            move_right()
+        elif x == "m":
+            set_medium_valocity()
+        elif x == "h":
+            set_high_valocity()
         elif x == "e":
-            # exit
-            GPIO.cleanup()
-            #GPIO.setmode(GPIO.BCM)
+            exit_program()
             break
         else:
-            print "Wrond command"
+            print("Wrond command")
 
 
 
