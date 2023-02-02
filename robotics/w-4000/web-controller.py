@@ -18,7 +18,7 @@ def go_forward():
 
 
 @app.route('/go-stop',methods = ['POST', ])
-def stop():
+def go_stop():
     stop()
     return jsonify({"success": True})
 
@@ -42,7 +42,7 @@ def go_backward():
 
 
 @app.route('/go-exit',methods = ['POST', ])
-def exit_program():
+def go_exit():
     exit_program()
     return jsonify({"success": True})
 

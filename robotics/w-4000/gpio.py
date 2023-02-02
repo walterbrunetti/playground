@@ -7,71 +7,48 @@ Impar = PIN # / 2 = UpRound() = position starting from right to left
 
 """
 
+# Motor 1
 in2 = 23  # orange  - PIN 16
 in1 = 24  # yelow  - PIN 18
 en = 25  # black  - PIN 22
 
+# Motor 2
 in1_2 = 17  # blue  - PIN 11
 en_2 = 27  # purple - PIN 13
 in2_2 = 26  # green - PIN 37
 
 # PIN 34 Ground - brown wire
 
-p = None
-p_2 = None
 
 GPIO.setmode(GPIO.BCM)
-
-# Motor 1
-GPIO.setup(in1, GPIO.OUT)
-GPIO.setup(in2, GPIO.OUT)
-GPIO.setup(en, GPIO.OUT)
-GPIO.output(in1, GPIO.LOW)
-GPIO.output(in2, GPIO.LOW)
-
-# Motor 2
-GPIO.setup(in1_2, GPIO.OUT)
-GPIO.setup(in2_2, GPIO.OUT)
-GPIO.setup(en_2, GPIO.OUT)
-GPIO.output(in1_2, GPIO.LOW)
-GPIO.output(in2_2, GPIO.LOW)
-
 #GPIO.setwarnings(False)
 
 
-p = None
-p_2= None
 
 motor_1 = None
 motor_2 = None
 
 
-# Test
-"""
-1- Uncoment the init part (just the GPIO) and re-try
-2- Try moving 'p' under the class
-
-"""
 
 class DCMotor():
     """A class to control one side of an L298N dual H bridge motor driver."""
     def __init__(self, en, in1, in2):
         self.in1 = in1
         self.in2 = in2
-    #    all_pins = [self.in1, self.in2]
-    #    GPIO.setmode(GPIO.BCM)
-    #    GPIO.setup(all_pins, GPIO.OUT)
-    #    GPIO.setup(en, GPIO.OUT)
-    #    #GPIO.setwarnings(False)
+        all_pins = [self.in1, self.in2]
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(all_pins, GPIO.OUT)
+        GPIO.setup(en, GPIO.OUT)
+        #GPIO.setwarnings(False)
 
-    #    GPIO.output(in1, GPIO.LOW)
-    #    GPIO.output(in2, GPIO.LOW)
+        GPIO.output(in1, GPIO.LOW)
+        GPIO.output(in2, GPIO.LOW)
 
 
         #global p
-    #    p = GPIO.PWM(en, 1000)
-    #    p.start(75)
-        #self.p = p
+        p = GPIO.PWM(en, 1000)  # Pulse Width Modulation for the motor
+        p.start(75)  # 75% of the velocity
+        self.p = p
 
 
     def forwards(self):
@@ -95,26 +72,12 @@ class DCMotor():
 
 
 
-
-
 def initialize():
-    global p
-    global p_2
     global motor_1
     global motor_2
 
-
     motor_1 = DCMotor(en, in1, in2)
     motor_2 = DCMotor(en_2, in1_2, in2_2)
-
-    p = GPIO.PWM(en, 1000)  # Pulse Width Modulation for motor 1
-    p.start(75)
-
-    p_2 = GPIO.PWM(en_2, 1000)
-    p_2.start(75)
-
-
-
 
 
 def move_forward():
