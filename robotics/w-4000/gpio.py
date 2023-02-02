@@ -5,6 +5,8 @@ import RPi.GPIO as GPIO
 Par = PIN # / 2 = positon starting from right to left
 Impar = PIN # / 2 = UpRound() = position starting from right to left
 
+From left to right just substract 20 (as we got 20 PINs on each row)
+
 """
 
 # Motor 1
@@ -22,7 +24,6 @@ in2_2 = 26  # green - PIN 37
 
 GPIO.setmode(GPIO.BCM)
 #GPIO.setwarnings(False)
-
 
 
 motor_1 = None
@@ -44,12 +45,14 @@ class DCMotor():
         GPIO.output(in1, GPIO.LOW)
         GPIO.output(in2, GPIO.LOW)
 
-
-        #global p
-        p = GPIO.PWM(en, 1000)  # Pulse Width Modulation for the motor
-        p.start(75)  # 75% of the velocity
-        self.p = p
-
+        try:
+            p = GPIO.PWM(en, 1000)  # Pulse Width Modulation for the motor
+            p.start(75)  # 75% of the velocity
+            self.p = p
+        except RuntimeError:
+            # A PWM object already exists for this GPIO channel
+            pass
+        
 
     def forwards(self):
         GPIO.output(self.in1, GPIO.HIGH)
@@ -81,57 +84,36 @@ def initialize():
 
 
 def move_forward():
-    global motor_1
-    global motor_2
-
     motor_1.forwards()
     motor_2.forwards()
 
 
 def move_backward():
-    global motor_1
-    global motor_2
-
     motor_1.backwards()
     motor_2.backwards()
 
 
 def stop():
-    global motor_1
-    global motor_2
-
     motor_1.stop()
     motor_2.stop()
 
 
 def move_left():
-    global motor_1
-    global motor_2
-
     motor_1.stop()
     motor_2.forwards()
 
 
 def move_right():
-    global motor_1
-    global motor_2
-
     motor_1.forwards()
     motor_2.stop()
 
 
 def set_high_valocity():
-    global motor_1
-    global motor_2
-
     motor_1.set_high_valocity()
     motor_2.set_high_valocity()
 
 
 def set_medium_valocity():
-    global motor_1
-    global motor_2
-
     motor_1.set_medium_valocity()
     motor_2.set_medium_valocity()
 
