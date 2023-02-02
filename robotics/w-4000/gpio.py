@@ -1,13 +1,21 @@
 import RPi.GPIO as GPIO
 
 
-in1 = 24  # yelow
-in2 = 23  # orange
-en = 25  # black
+"""
+Par = PIN # / 2 = positon starting from right to left
+Impar = PIN # / 2 = UpRound() = position starting from right to left
 
-in1_2 = 17  # blue
-in2_2 = 26  # green
-en_2 = 27  # purple
+"""
+
+in2 = 23  # orange  - PIN 16
+in1 = 24  # yelow  - PIN 18
+en = 25  # black  - PIN 22
+
+in1_2 = 17  # blue  - PIN 11
+en_2 = 27  # purple - PIN 13
+in2_2 = 26  # green - PIN 37
+
+# PIN 34 Ground - brown wire
 
 p = None
 p_2 = None
@@ -185,7 +193,7 @@ def run_robot():
 
     while(1):
         print("Input command: ")
-        x = raw_input()
+        x = input()
         
         if x == "f":
             print("forward")
