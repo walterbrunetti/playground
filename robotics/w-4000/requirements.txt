@@ -1,2 +1,2 @@
 flask
-RPi.GPIO
+RPi.GPIO==0.7.1
