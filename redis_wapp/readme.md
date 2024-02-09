@@ -35,6 +35,7 @@ Next steps:
 - monitoring celery/tasks (flower - new rellic/data dog/ graphite-grafana/logentries)
   * https://flower.readthedocs.io/en/latest/prometheus-integration.html#start-grafana
 - supervisord
+- Mitigate problems with Celery. See fixes here: https://steve.dignam.xyz/2023/05/20/many-problems-with-celery/
 
 
 # Redis commands
